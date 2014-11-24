@@ -18,6 +18,9 @@ parser.add_option("-l", "--ddlname", dest="ddln",
                   help="write hql to the DDL_NAME.hql", metavar="DDL_NAME.hql")
 parser.add_option("-n", "--dataname", dest="datan",
                   help="write normalized fixdata to NORM_FIX.txt", metavar="NORM_FIX.txt")
+parser.add_option("-p", "--platform", dest="plat",
+                  help="type operation platform", metavar="PLATFORM")
+
 parser.add_option("-q", "--quiet",
                   action="store_false", dest="verbose", default=True,
                   help="don't print status messages to stdout")
@@ -29,6 +32,7 @@ print "the output table name: " + options.tablen
 print "the input dictionary: " + options.dictn
 print "the ouput name of DDL file: " + options.ddln
 print "the output normalized fix data: " + options.datan
+print "the operating platform: " + options.plat
 # ----------------------specify area-------------------
 tagfile=options.tagn
 fixdict=options.dictn
@@ -36,6 +40,7 @@ raw_data=options.fixn
 normfix=options.datan
 fix_con=options.ddln
 fix_table=options.tablen
+opsys=options.plat
 # ------------------------LOAD NEED TAG---------------------------------
 file = open(tagfile, 'r')
 input=file.read()
