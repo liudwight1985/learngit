@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-
 import sys
 
 #------------------- SPECIFY THE FILE NAME AND OUTPUT------------------------
@@ -56,8 +55,6 @@ for num in input:
          num_add_list=map(str,num_add_list)
          select_tag_list.extend(num_add_list)
 
-print 'TOTAL TAG YOU NEED '
-#print select_tag_list
 # -----------------CREATE EMPTY HIVE FIX-------------------------------------
 print 'CREATE EMPTY HIVE FIX'
 file = open(fixdict, 'r')
@@ -77,9 +74,7 @@ fc.write('    ,linenumber INT\n')
 for needtag in select_tag_list:
        name_type = tag_dict[needtag]
        tag_name=name_type[0]
-       #print tag_name
        tag_type=name_type[1]
-       #print tag_type
        fc.write('    ,'+tag_name+' '+tag_type+'\n')
 fc.write(")\nROW FORMAT DELIMITED\nFIELDS TERMINATED BY '|'\nLINES TERMINATED BY '\\n'\nSTORED AS TEXTFILE;")
 fc.write("\nLOAD DATA LOCAL INPATH './"+normfix+"'\nOVERWRITE INTO TABLE "+fix_table+";")
@@ -95,15 +90,11 @@ input=file.read().splitlines()
 input=''.join(input)
 input=input.split('|')
 pairs=filter(None,input)
-#print pairs
 numberline=-1
 
 fd=open(normfix,'w+')
 for pair in pairs:
     divpair = pair.split('=')
-    #print divpair
-         #print 'tag:'+ divpair[0]
-         #print 'content:'+ divpair[1]
     if int(divpair[0]) == 8:
        numberline=numberline+1
        if(nonfirst):
@@ -124,7 +115,6 @@ for pair in pairs:
     fix_value_list.append(divpair[1])
 fd.close()
 
-
 ### STOP HERE
 sys.exit(0)
 
@@ -134,8 +124,7 @@ import subprocess
 import os
 print '###### CREATE EMPTY FIX_TABLE ######'
 print fix_con
-com="hive -f"
-s3 = subprocess.call(["hive","-f",fix_con] )
+s3 = subprocess.call([opsys,"-f",fix_con] )
 print s3
 if (s3):
     print 'CREATE TABLE ERROR'
@@ -144,7 +133,7 @@ else:
     print 'create empty'+fix_table+' table success'
 print '###### SHOW CONTENT ######'
 print fix_table
-s5=subprocess.call(["hive","-e","select * from "+fix_table])
+s5=subprocess.call([opsys,"-e","select * from "+fix_table])
 if (s5):
     print 'SHOW CONTENT ERROR'
     exit
