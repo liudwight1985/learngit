@@ -41,7 +41,15 @@ fix_con=options.ddln
 fix_table=options.tablen
 opsys=options.plat
 # ------------------------LOAD NEED TAG---------------------------------
-file = open(tagfile, 'r')
+
+try:
+        file = open(tagfile, 'r')
+except IOError:
+        print 'cannot open', tagfile
+else:
+        print tagfile, 'has', len(file.readlines()), 'lines'
+        file.close()
+
 input=file.read()
 input=input.strip()
 input=input.split(',')
@@ -57,7 +65,15 @@ for num in input:
 
 # -----------------CREATE EMPTY HIVE FIX-------------------------------------
 print 'CREATE EMPTY HIVE FIX'
-file = open(fixdict, 'r')
+
+try:
+        file = open(fixdict, 'r')
+except IOError:
+        print 'cannot open', fixdict
+else:
+        print fixdict, 'has', len(file.readlines()), 'lines'
+        file.close()
+
 input=file.read()
 pairs = input.split()
 tag_dict = dict()
@@ -85,7 +101,15 @@ nonfirst=False
 fixtag_list=['']
 fix_value_list=['']
 needvalue_list=['']*(len(select_tag_list)+2)
-file = open(raw_data, 'r')
+
+try:
+        file = open(raw_data, 'r')
+except IOError:
+        print 'cannot open', raw_data
+else:
+        print raw_data, 'has', len(file.readlines()), 'lines'
+        file.close()
+
 input=file.read().splitlines()
 input=''.join(input)
 input=input.split('|')
