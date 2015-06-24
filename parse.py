@@ -1,7 +1,7 @@
 #!/usr/bin/python
-
+import subprocess
 import sys
-
+import os
 #------------------- SPECIFY THE FILE NAME AND OUTPUT------------------------
 from optparse import OptionParser
 parser = OptionParser()
@@ -23,9 +23,11 @@ parser.add_option("-p", "--platform", dest="plat",
 parser.add_option("-q", "--quiet",
                   action="store_false",dest="verbose",default="True",
                   help="don't print status messages to stdout")
-
 (options, args) = parser.parse_args()
 
+if not(options.verbose):
+   print "Silent Mode"
+   sys.stdout = open('trash', 'w')
 try:
      #(options, args) = parser.parse_args()
      print "input raw fix data: " + options.fixn
@@ -34,10 +36,10 @@ try:
      print "the input dictionary: " + options.dictn
      print "the ouput name of DDL file: " + options.ddln
      print "the output normalized fix data: " + options.datan
-except Exception:
+except  IOError:
      print "you need to fully specify\n(1)fix data\n(2)the selected tag list\n(3)the referred tag dictionary\n(4)the name of the table wil be shwoed in ddl\n(5)the name of the ddl file\n(6)the name of the normalized fix data\n(7)the operating system  " 
      print "Any argument above cannot be omitted"
-     print "You sould specify like this '<your_script_name> -f nameof_fix_data -b nameof_selected_tag_list -d nameof_refered_fix_dictionary -t nameof_table -l nameof_ddl nameof_normalized_fix_data -p nameof_operating_system '"
+     print "You sould specify like this '<your_script_name> -f nameof_fix_data -b nameof_selected_tag_list -d nameof_refered_fix_dictionary -t nameof_table -l nameof_ddl -n nameof_normalized_fix_data -p nameof_operating_system '"
      sys.exit(0)
 try: 
      print "the interpreter: " + options.plat
@@ -164,8 +166,6 @@ fd.close()
 
 if(opsys):
    if opsys== "hive" :
-      import subprocess
-      import os
       print '###### CREATE EMPTY FIX_TABLE ######'
       print fix_con
       s3 = subprocess.call([opsys,"-f",fix_con] )

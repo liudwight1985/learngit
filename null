@@ -1,0 +1,9 @@
+True
+input raw fix data: nameof_fix_data
+the tag list: nameof_selected_tag_list
+the output table name: nameof_table
+the input dictionary: nameof_refered_fix_dictionary
+the ouput name of DDL file: nameof_ddl
+the output normalized fix data: nameof_normalized_fix_data
+the interpreter: nameof_operating_system
+cannot open or there is no this file nameof_selected_tag_list

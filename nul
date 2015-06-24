@@ -1,0 +1,18 @@
+input raw fix data: test_scotia_fixlog.txt
+the tag list: select_tags.txt
+the output table name: new_table
+the input dictionary: fix_tag_dict.txt
+the ouput name of DDL file: ddl_name.hql
+the output normalized fix data: normfix.txt
+the interpreter: hive
+select_tags.txt has 1 lines
+CREATE EMPTY HIVE FIX
+fix_tag_dict.txt has 1138 lines
+test_scotia_fixlog.txt has 23 lines
+###### CREATE EMPTY FIX_TABLE ######
+ddl_name.hql
+0
+create emptynew_table table success
+###### SHOW CONTENT ######
+new_table
+show content of loaded new_table table success
